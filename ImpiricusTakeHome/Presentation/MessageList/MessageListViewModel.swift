@@ -48,6 +48,7 @@ final class MessageListViewModel {
         return "\(filterDateRange.start.formatted(date: .numeric, time: .omitted)) - \(filterDateRange.end.formatted(date: .numeric, time: .omitted))"
     }
     
+    var needsSetup: Bool = true
     var isLoading: Bool = false
     var sheetType: SheetType? = nil
     
@@ -60,6 +61,7 @@ final class MessageListViewModel {
         isLoading = true
         defer {
             isLoading = false
+            needsSetup = false
         }
         
         messages = await messagesRepo.getMessages()

@@ -32,44 +32,24 @@ struct MessageRow: View {
     }
 }
 
-// MARK: - SubViews
+// MARK: - Previews
 
-private struct SentimentTag: View {
-    
-    let sentiment: Message.Sentiment
-    
-    private var tagColor: Color {
-        switch sentiment {
-        case .neutral:
-            Color.gray
-        case .positve:
-            Color.green
-        case .negative:
-            Color.red
-        case .unknown:
-            Color.black
-        }
-    }
-    
-    private var displayText: String {
-        switch sentiment {
-        case .neutral:
-            "Neutral"
-        case .positve:
-            "Positive"
-        case .negative:
-            "Negative"
-        case .unknown(let name):
-            "Unknown: \(name)"
-        }
-    }
-    
-    var body: some View {
-        Text(displayText)
-            .font(.caption)
-            .foregroundStyle(Color.white)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(tagColor.opacity(0.8), in: Capsule())
-    }
+#Preview {
+    MessageRow(
+        message: Message(
+            id: 1,
+            physicianID: 1,
+            channel: .email,
+            direction: .inbound,
+            timestamp: Date(),
+            messageText: "Hi there!",
+            campaignID: "CMP-001",
+            topic: "Refills",
+            complianceTag: "CT-01",
+            sentiment: .positve,
+            deliveryStatus: .delivered,
+            responseLatency: 0.0125
+        ),
+        physicianName: "Dave Sadler"
+    )
 }

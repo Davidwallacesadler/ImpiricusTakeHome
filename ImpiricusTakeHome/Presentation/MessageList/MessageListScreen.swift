@@ -26,10 +26,15 @@ struct MessageListScreen: View {
                 if !viewModel.isLoading {
                     Section {
                         ForEach(viewModel.displayMessages) { message in
-                            MessageRow(
-                                message: message,
-                                physicianName: viewModel.physicianIDToPhysicianName[message.physicianID]
-                            )
+                            NavigationLink {
+                                MessageDetailScreen(message: message)
+                            } label: {
+                                MessageRow(
+                                    message: message,
+                                    physicianName: viewModel.physicianIDToPhysicianName[message.physicianID]
+                                )
+                            }
+                            
                         }
                     } header: {
                         ScrollView(.horizontal) {
@@ -55,13 +60,19 @@ struct MessageListScreen: View {
             }
             .navigationTitle("Messages")
             .task {
-                await viewModel.fetchAllData()
+                if viewModel.needsSetup {
+                    await viewModel.fetchAllData()
+                }
             }
             .overlay {
                 if viewModel.isLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .scaleEffect(1.5)
+                } else if viewModel.displayMessages.isEmpty {
+                    Text("No Messages Found")
+                        .font(.headline)
+                        .foregroundStyle(Color.gray)
                 }
             }
             .sheet(item: $viewModel.sheetType) { sheetType in
@@ -117,4 +128,10 @@ private struct FilterChipButton: View {
             }
         }
     }
+}
+
+// MARK: - Previews
+
+#Preview {
+    MessageListScreen()
 }

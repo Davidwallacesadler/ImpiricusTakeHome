@@ -41,3 +41,9 @@ struct DateRangePickerScreen: View {
         }
     }
 }
+
+// MARK: - Previews
+
+#Preview {
+    DateRangePickerScreen(dateRange: .constant(nil))
+}
