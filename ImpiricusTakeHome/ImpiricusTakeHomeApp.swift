@@ -11,7 +11,7 @@ import SwiftUI
 struct ImpiricusTakeHomeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MessageListScreen()
         }
     }
 }
