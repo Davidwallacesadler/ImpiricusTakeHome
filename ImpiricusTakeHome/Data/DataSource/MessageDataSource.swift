@@ -25,9 +25,6 @@ class MockMessageDataSource: MessageDataSource {
                 let fileContents = try String(contentsOf: fileURL, encoding: .utf8)
                 let messageCSV = try CSV<Named>(string: fileContents)
                 
-                print(messageCSV.rows.map { row in
-                    csvToMessage(columnToRowData: row)
-                })
                 return messageCSV.rows.map { row in
                     csvToMessage(columnToRowData: row)
                 }

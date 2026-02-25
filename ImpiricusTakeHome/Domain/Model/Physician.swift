@@ -15,3 +15,11 @@ struct Physician: Identifiable {
     let hasConcentedToOptIn: Bool
     let preferredChannel: String
 }
+
+// MARK: - Computed Properties
+
+extension Physician {
+    var name: String {
+        "\(firstName) \(lastName)"
+    }
+}
